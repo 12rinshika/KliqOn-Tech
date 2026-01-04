@@ -61,7 +61,7 @@ export function HeroSection({ heroRef }: HeroSectionProps) {
 
   return (
     <section ref={heroRef} className="relative min-h-screen flex items-center justify-center pt-24 md:pt-32 pb-12 md:pb-20 overflow-hidden px-4">
-      <div className="container mx-auto px-4 md:px-6 grid grid-cols-1 lg:grid-cols-2 gap-8 md:gap-12 items-center relative z-10">
+      <div className="container mx-auto px-5 md:px-6 grid grid-cols-1 lg:grid-cols-2 gap-8 md:gap-12 items-center relative z-10">
         {/* Left Content */}
         <motion.div
           initial={{ opacity: 0, x: -100 }}
@@ -75,7 +75,7 @@ export function HeroSection({ heroRef }: HeroSectionProps) {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ delay: 0.2 }}
-            className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-medium leading-tight"
+            className="text-5xl sm:text-6xl md:text-7xl lg:text-7xl font-medium leading-snug"
           >
             <span className="text-[#F3F3F3]">Transforming Ideas</span>{" "}
             <span className="text-[#0023E8]">Into Digital Reality</span>

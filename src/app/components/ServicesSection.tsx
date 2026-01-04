@@ -14,8 +14,8 @@ export function ServicesSection() {
         viewport={{ once: true }}
         className="container mx-auto text-center mb-8 md:mb-12"
       >
-        <h2 className="text-3xl md:text-5xl lg:text-6xl font-medium text-[#B7B8BC] mb-3 md:mb-4 px-4">Our Services & Solutions</h2>
-        <p className="text-lg md:text-2xl lg:text-3xl text-[#B7B8BC] px-4">
+        <h2 className="text-3xl md:text-5xl lg:text-6xl font-medium text-[#F3F3F3] mb-3 md:mb-4 px-4">Our Services & Solutions</h2>
+        <p className="text-lg md:text-2xl lg:text-3xl text-[#F3F3F3] px-4">
           We offer a comprehensive range of technology services designed to accelerate your digital transformation journey.
         </p>
       </motion.div>

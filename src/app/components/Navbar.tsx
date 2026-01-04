@@ -1,11 +1,38 @@
 import { motion } from "motion/react";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import imgDownload1 from "figma:asset/83162c82792c82cd0187b92d4551c788772c65c7.png";
 
 export function Navbar() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [isShrunk, setIsShrunk] = useState(false);
   const navigate = useNavigate();
+
+  useEffect(() => {
+    const onScroll = () => setIsShrunk(window.scrollY > 80);
+    window.addEventListener("scroll", onScroll, { passive: true });
+    onScroll();
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
+
+  const goToRoute = (route: string) => {
+    if (route.startsWith("/")) {
+      navigate(route);
+      return;
+    }
+
+    const scrollToHash = () => {
+      const el = document.querySelector(route);
+      if (el) el.scrollIntoView({ behavior: "smooth", block: "start" });
+    };
+
+    if (window.location.pathname !== "/") {
+      navigate("/");
+      setTimeout(scrollToHash, 150);
+    } else {
+      scrollToHash();
+    }
+  };
 
   const menuItems = ["Services", "Products", "About Us", "Career"];
 
@@ -24,21 +51,19 @@ export function Navbar() {
       initial={{ y: -100, opacity: 0 }}
       animate={{ y: 0, opacity: 1 }}
       transition={{ duration: 0.8, ease: "easeOut" }}
-      className="fixed top-3 md:top-6 left-1/2 -translate-x-1/2 z-50 w-[95%] md:w-[90%] max-w-[1200px]"
-    >
+      className={`fixed z-50 left-1/2 -translate-x-1/2 transition-all duration-700 ease-in-out ${
+        isShrunk ? "w-[90%] md:w-[90%] max-w-[1200px] top-1 md:top-2" : "w-[100%] md:w-[100%] max-w-[1800px]"
+      }`}
+      style={{ willChange: "width, padding" }}
+          >
       <div
-          className={`relative bg-gradient-to-r from-[#0E1322]/40 to-[#0023E8]/20 backdrop-blur-xl border border-[#B7B8BC]/20 ${
-            mobileMenuOpen ? "rounded-xl" : "rounded-full"
-          } px-4 md:px-8 py-3 md:py-4 shadow-2xl`}
-        >
-        <div className="flex items-center justify-between">
+        className={`relative bg-gradient-to-r from-[#0E1322]/40 to-[#0023E8]/20 backdrop-blur-xl border-t border-b border-[#B7B8BC]/20 ${mobileMenuOpen ? "rounded-xl" : isShrunk ? "rounded-full" : "rounded-none"} ${isShrunk ? "px-4 md:px-8" : "px-0"} ${mobileMenuOpen ? "h-auto py-4" : isShrunk ? "h-14 md:h-18" : "h-20 md:h-24"} shadow-2xl transition-all duration-700 ease-in-out`}
+      >
+        <div className={`flex items-center justify-between ${isShrunk ? "" : "h-full"}`}>
           {/* Logo */}
-          <a href="/" onClick={handleLogoClick} className="z-10">
-            <motion.div
-              whileHover={{ scale: 1.05 }}
-              className="flex items-center z-10 cursor-pointer"
-            >
-              <img src={imgDownload1} alt="Logo" className="h-8 md:h-12 w-auto rounded-lg" />
+          <a href="/" onClick={handleLogoClick} className={`z-10 ${isShrunk ? "" : "pl-4 md:pl-8"}`}>
+            <motion.div whileHover={{ scale: 1.05 }} className="flex items-center z-10 cursor-pointer">
+              <img src={imgDownload1} alt="Logo" className="h-14 md:h-18 w-auto rounded-lg" />
             </motion.div>
           </a>
 
@@ -53,19 +78,14 @@ export function Navbar() {
                 return `#${item.toLowerCase().replace(" ", "-")}`;
               };
 
-              const handleClick = (e: React.MouseEvent, item: string) => {
-                const route = getRoute(item);
-                if (route.startsWith("/")) {
-                  e.preventDefault();
-                  navigate(route);
-                }
-              };
-
               return (
                 <motion.a
                   key={item}
                   href={getRoute(item)}
-                  onClick={(e) => handleClick(e, item)}
+                  onClick={(e) => {
+                    e.preventDefault();
+                    goToRoute(getRoute(item));
+                  }}
                   className="text-[#F3F3F3] text-base xl:text-lg cursor-pointer relative whitespace-nowrap"
                   whileHover={{ scale: 1.1, color: "#0023E8" }}
                   initial={{ opacity: 0, y: -20 }}
@@ -85,10 +105,7 @@ export function Navbar() {
           </div>
 
           {/* Mobile Menu Button */}
-          <button
-            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-            className="lg:hidden text-[#F3F3F3] p-2 z-10"
-          >
+          <button onClick={() => setMobileMenuOpen(!mobileMenuOpen)} className="lg:hidden text-[#F3F3F3] p-2 z-10">
             <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               {mobileMenuOpen ? (
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
@@ -103,7 +120,7 @@ export function Navbar() {
             onClick={() => navigate("/contact")}
             whileHover={{ scale: 1.05, boxShadow: "0 0 20px rgba(0, 35, 232, 0.5)" }}
             whileTap={{ scale: 0.95 }}
-            className="hidden lg:block bg-[#0023E8] text-[#F3F3F3] px-4 xl:px-6 py-2 rounded-full text-sm xl:text-base"
+            className={`hidden lg:block bg-[#0023E8] text-[#F3F3F3] px-4 xl:px-6 py-2 rounded-full text-sm xl:text-base ${isShrunk ? "" : "mr-4 md:mr-8"}`}
           >
             Contact
           </motion.button>
@@ -115,9 +132,9 @@ export function Navbar() {
             initial={{ opacity: 0, height: 0 }}
             animate={{ opacity: 1, height: "auto" }}
             exit={{ opacity: 0, height: 0 }}
-            className="lg:hidden mt-4 pt-4 border-t border-[#B7B8BC]/20"
+            className="lg:hidden mt-4 pt-4 border-t border-[#B7B8BC]/20 bg-gradient-to-r from-[#0E1322]/40 to-[#0023E8]/20 backdrop-blur-xl rounded-b-xl"
           >
-            <div className="flex flex-col gap-4">
+            <div className="flex flex-col gap-4 px-4">
               {menuItems.map((item) => {
                 const getRoute = (item: string) => {
                   if (item === "Products") return "/products";
@@ -127,27 +144,22 @@ export function Navbar() {
                   return `#${item.toLowerCase().replace(" ", "-")}`;
                 };
 
-                const handleClick = (e: React.MouseEvent, item: string) => {
-                  const route = getRoute(item);
-                  if (route.startsWith("/")) {
-                    e.preventDefault();
-                    navigate(route);
-                  }
-                  setMobileMenuOpen(false);
-                };
-
                 return (
                   <a
                     key={item}
                     href={getRoute(item)}
-                    onClick={(e) => handleClick(e, item)}
+                    onClick={(e) => {
+                      e.preventDefault();
+                      goToRoute(getRoute(item));
+                      setMobileMenuOpen(false);
+                    }}
                     className="text-[#F3F3F3] text-base py-2"
                   >
                     {item}
                   </a>
                 );
               })}
-              <button 
+              <button
                 onClick={() => {
                   navigate("/contact");
                   setMobileMenuOpen(false);
@@ -163,4 +175,3 @@ export function Navbar() {
     </motion.nav>
   );
 }
-

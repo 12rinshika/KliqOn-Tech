@@ -18,8 +18,8 @@ export function HomePage() {
       <HeroSection heroRef={heroRef}/>
       <ServicesSection />
       <TechStackSection />
-      <MissionSection />
       <AboutSection />
+      <MissionSection />
       <ClientsSection />
       <CTASection />
       <Footer />
