@@ -2,8 +2,9 @@ import { useEffect, useState } from "react";
 import { motion } from "motion/react";
 import { portfolioData } from "../data/portfolioData";
 import type { PortfolioItem } from "../data/portfolioData";
+import { useLayoutEffect } from "react";
 
-import "./portfolio.css";
+import "../../styles/portfolio.css"
 
 /* ---------- Animated Stat Component ---------- */
 function Stat({ value, label }: { value: number; label: string }) {
@@ -30,6 +31,7 @@ useEffect(() => {
 }, [value]);
 
 
+
   return (
     <motion.div
       initial={{ opacity: 0, y: 25 }}
@@ -46,6 +48,7 @@ useEffect(() => {
 /* ---------- Main Component ---------- */
 export function PortfolioSection() {
   const [active, setActive] = useState("All");
+  
 
   const categories = ["All", "Web", "E-Commerce", "UI/UX", "Enterprise"];
 
@@ -55,6 +58,10 @@ export function PortfolioSection() {
       : portfolioData.filter(
           (item: PortfolioItem) => item.category === active
         );
+    
+ useLayoutEffect(() => {
+     window.scrollTo({ top: 0, behavior: "auto" });
+   }, []);
 
   return (
     <section className="portfolio-section">

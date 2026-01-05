@@ -11,8 +11,8 @@ export function TechStackSection() {
         viewport={{ once: true }}
         className="container mx-auto text-center mb-8 md:mb-16"
       >
-        <h2 className="text-3xl md:text-5xl lg:text-6xl font-medium text-[#B7B8BC] mb-3 md:mb-4 px-4">Tech Stack We Specialize In</h2>
-        <p className="text-lg md:text-2xl lg:text-3xl text-[#B7B8BC] px-4">
+        <h2 className="text-3xl md:text-5xl lg:text-6xl font-medium text-[#F3F3F3] mb-3 md:mb-4 px-4">Tech Stack We Specialize In</h2>
+        <p className="text-lg md:text-2xl lg:text-3xl text-[#F3F3F3] px-4">
           From frontend finesse to backend power — we build with the best tools in the tech game.
         </p>
       </motion.div>
@@ -28,21 +28,21 @@ export function TechStackSection() {
             whileHover={{ y: -10, scale: 1.02 }}
             className="group relative"
           >
-            <div className="bg-[#242f6c] rounded-2xl p-4 md:p-6 border border-[#0023E8]/30 shadow-xl hover:shadow-2xl transition-all overflow-hidden">
+            <div className="bg-[#242f6c] rounded-2xl p-4 md:p-6 border border-[#0023E8]/30 shadow-xl hover:shadow-2xl transition-all overflow-hidden h-80 md:h-96 flex flex-col">
               {/* Tech Image */}
               <motion.div
-                className="mb-4 md:mb-6 rounded-xl overflow-hidden"
+                className="mb-4 md:mb-6 rounded-xl overflow-hidden h-32 md:h-40 flex-shrink-0"
                 whileHover={{ scale: 1.05 }}
               >
                 <ImageWithFallback
                   src={tech.image}
                   alt={tech.title}
-                  className="w-full h-36 md:h-48 object-cover"
+                  className="w-full h-full object-cover"
                 />
               </motion.div>
 
               <h3 className="text-xl md:text-2xl font-medium text-white mb-2 md:mb-3">{tech.title}</h3>
-              <p className="text-[#B7B8BC] text-sm md:text-base">{tech.description}</p>
+              <p className="text-[#B7B8BC] text-sm md:text-base flex-1">{tech.description}</p>
 
               {/* Hover effect overlay */}
               <motion.div

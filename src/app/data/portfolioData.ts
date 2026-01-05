@@ -44,4 +44,4 @@ export const portfolioData: PortfolioItem[] = [
       "Digital presence management including website maintenance and social media handling for a medical institution.",
     link: "https://share.google/VYJIT0GRl4Wi87kXR",
   },
-];
+] as const
