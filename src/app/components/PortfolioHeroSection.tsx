@@ -70,4 +70,8 @@ export function PortfolioHeroSection() {
       </section>
     </>
   );
+<<<<<<< HEAD
 }
+=======
+}
+>>>>>>> 999929d (made a better portfolio page)

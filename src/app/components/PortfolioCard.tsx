@@ -40,4 +40,8 @@ export function PortfolioCard({ item, index }: PortfolioCardProps) {
       </a>
     </motion.div>
   );
+<<<<<<< HEAD
 }
+=======
+}
+>>>>>>> 999929d (made a better portfolio page)
