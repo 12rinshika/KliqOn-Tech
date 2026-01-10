@@ -50,7 +50,7 @@ export function AboutSection() {
           >
             {/* GIF */}
             <img
-              src="/public/about/source.gif"
+              src="/about/source.gif"
               alt="KliqOn team collaboration"
               className="w-full h-full object-cover"
             />
