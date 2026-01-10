@@ -3,7 +3,7 @@ import { HomePage } from "./pages/HomePage";
 import { ContactPage } from "./pages/ContactPage";
 import { ProductsPage } from "./pages/ProductsPage";
 import { CareerPage } from "./pages/CareerPage";
-import { Portfolio } from "./pages/Portfolio";
+import Portfolio from "./pages/Portfolio";
 import { AboutUs } from "./pages/AboutUs"
 import { Analytics } from "@vercel/analytics/react";
 
